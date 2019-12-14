@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseEF.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coach">
+          <Key>
+            <PropertyRef Name="Coach_Id" />
+          </Key>
+          <Property Name="Coach_Id" Type="int" Nullable="false" />
+          <Property Name="Coach_Fname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Coach_Lanme" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Coach_Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Team_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="Parent_Id" />
+          </Key>
+          <Property Name="Parent_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent_Fname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Parent_Lname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Parent_Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Parent_Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Parent_City" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Parent_State" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Parent_Zip" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Player_Id" />
+          </Key>
+          <Property Name="Player_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Player_Fname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Player_Lname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Player_Age" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Team_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Registers">
+          <Key>
+            <PropertyRef Name="Parent_Id" />
+            <PropertyRef Name="Player_Id" />
+          </Key>
+          <Property Name="Parent_Id" Type="int" Nullable="false" />
+          <Property Name="Player_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Team_Id" />
+          </Key>
+          <Property Name="Team_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Team_Colors" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Team_Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Coach__Team_Id__3C69FB99">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Coach" Type="Self.Coach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Team_Id" />
+            </Principal>
+            <Dependent Role="Coach">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Player__Team_Id__3D5E1FD2">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Team_Id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registers__Paren__3A81B327">
+          <End Role="Parent" Type="Self.Parent" Multiplicity="1" />
+          <End Role="Registers" Type="Self.Registers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parent">
+              <PropertyRef Name="Parent_Id" />
+            </Principal>
+            <Dependent Role="Registers">
+              <PropertyRef Name="Parent_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registers__Playe__3B75D760">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Registers" Type="Self.Registers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Player_Id" />
+            </Principal>
+            <Dependent Role="Registers">
+              <PropertyRef Name="Player_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEFStoreContainer">
+          <EntitySet Name="Coach" EntityType="Self.Coach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parent" EntityType="Self.Parent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registers" EntityType="Self.Registers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Coach__Team_Id__3C69FB99" Association="Self.FK__Coach__Team_Id__3C69FB99">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Coach" EntitySet="Coach" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Player__Team_Id__3D5E1FD2" Association="Self.FK__Player__Team_Id__3D5E1FD2">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registers__Paren__3A81B327" Association="Self.FK__Registers__Paren__3A81B327">
+            <End Role="Parent" EntitySet="Parent" />
+            <End Role="Registers" EntitySet="Registers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registers__Playe__3B75D760" Association="Self.FK__Registers__Playe__3B75D760">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Registers" EntitySet="Registers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseEF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coach">
+          <Key>
+            <PropertyRef Name="Coach_Id" />
+          </Key>
+          <Property Name="Coach_Id" Type="Int32" Nullable="false" />
+          <Property Name="Coach_Fname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Coach_Lanme" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Coach_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Team_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Coach__Team_Id__3C69FB99" FromRole="Coach" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="Parent_Id" />
+          </Key>
+          <Property Name="Parent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent_Fname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_Lname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_Zip" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Players" Relationship="Self.Registers" FromRole="Parent" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Player_Id" />
+          </Key>
+          <Property Name="Player_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Player_Fname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Player_Lname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Player_Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Team_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Player__Team_Id__3D5E1FD2" FromRole="Player" ToRole="Team" />
+          <NavigationProperty Name="Parents" Relationship="Self.Registers" FromRole="Player" ToRole="Parent" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Team_Id" />
+          </Key>
+          <Property Name="Team_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Team_Colors" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Team_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Coaches" Relationship="Self.FK__Coach__Team_Id__3C69FB99" FromRole="Team" ToRole="Coach" />
+          <NavigationProperty Name="Players" Relationship="Self.FK__Player__Team_Id__3D5E1FD2" FromRole="Team" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK__Coach__Team_Id__3C69FB99">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Coach" Type="Self.Coach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Team_Id" />
+            </Principal>
+            <Dependent Role="Coach">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Player__Team_Id__3D5E1FD2">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Team_Id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Registers">
+          <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coaches" EntityType="Self.Coach" />
+          <EntitySet Name="Parents" EntityType="Self.Parent" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK__Coach__Team_Id__3C69FB99" Association="Self.FK__Coach__Team_Id__3C69FB99">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Coach" EntitySet="Coaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Player__Team_Id__3D5E1FD2" Association="Self.FK__Player__Team_Id__3D5E1FD2">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="Registers" Association="Self.Registers">
+            <End Role="Parent" EntitySet="Parents" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseEFStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Coaches">
+            <EntityTypeMapping TypeName="DatabaseEF.Coach">
+              <MappingFragment StoreEntitySet="Coach">
+                <ScalarProperty Name="Coach_Id" ColumnName="Coach_Id" />
+                <ScalarProperty Name="Coach_Fname" ColumnName="Coach_Fname" />
+                <ScalarProperty Name="Coach_Lanme" ColumnName="Coach_Lanme" />
+                <ScalarProperty Name="Coach_Phone" ColumnName="Coach_Phone" />
+                <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="DatabaseEF.Parent">
+              <MappingFragment StoreEntitySet="Parent">
+                <ScalarProperty Name="Parent_Id" ColumnName="Parent_Id" />
+                <ScalarProperty Name="Parent_Fname" ColumnName="Parent_Fname" />
+                <ScalarProperty Name="Parent_Lname" ColumnName="Parent_Lname" />
+                <ScalarProperty Name="Parent_Phone" ColumnName="Parent_Phone" />
+                <ScalarProperty Name="Parent_Street" ColumnName="Parent_Street" />
+                <ScalarProperty Name="Parent_City" ColumnName="Parent_City" />
+                <ScalarProperty Name="Parent_State" ColumnName="Parent_State" />
+                <ScalarProperty Name="Parent_Zip" ColumnName="Parent_Zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="DatabaseEF.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Player_Id" ColumnName="Player_Id" />
+                <ScalarProperty Name="Player_Fname" ColumnName="Player_Fname" />
+                <ScalarProperty Name="Player_Lname" ColumnName="Player_Lname" />
+                <ScalarProperty Name="Player_Age" ColumnName="Player_Age" />
+                <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="DatabaseEF.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
+                <ScalarProperty Name="Team_Colors" ColumnName="Team_Colors" />
+                <ScalarProperty Name="Team_Name" ColumnName="Team_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Registers" TypeName="DatabaseEF.Registers" StoreEntitySet="Registers">
+            <EndProperty Name="Parent">
+              <ScalarProperty Name="Parent_Id" ColumnName="Parent_Id" />
+            </EndProperty>
+            <EndProperty Name="Player">
+              <ScalarProperty Name="Player_Id" ColumnName="Player_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

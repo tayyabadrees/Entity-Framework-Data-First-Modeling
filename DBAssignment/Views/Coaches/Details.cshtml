@@ -1,0 +1,50 @@
+﻿@model DBAssignment.Models.Coach
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Coach</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Coach_Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coach_Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coach_Lanme)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coach_Lanme)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coach_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coach_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.Team_Colors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.Team_Colors)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Coach_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DBAssignment.Models.Coach>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Coach_Fname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coach_Lanme)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coach_Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team.Team_Colors)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coach_Fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coach_Lanme)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coach_Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team.Team_Colors)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Coach_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Coach_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Coach_Id })
+        </td>
+    </tr>
+}
+
+</table>

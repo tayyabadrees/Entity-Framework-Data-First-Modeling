@@ -1,0 +1,74 @@
+﻿@model DBAssignment.Models.Parent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Parent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_Lname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_Zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_Zip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Parent_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
